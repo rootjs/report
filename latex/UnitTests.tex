@@ -1,1 +1,71 @@
 \chapter{Unit Tests}
+\section{C++ Unit Tests}
+Initially, the aim was to have unit tests running for the C++ code written for rootJS. 
+Google Test was chosen for unit testing. However, an insurmountable issue appeared.
+It was not possible to make Google Test work with rootJS, because all files included in
+the rootJS source files also had to be built. This includes ROOT and Google v8. ROOT was built just fine, 
+but it was not possible to build v8. This was not an issue with Google Test, but an issue with 
+v8 itself. There may have been a possibility to build v8, but there little to no documentation 
+about how to do it, and would have taken up a considerable amount of time. 
+Consequently, rootJS has no unit testing.
+
+\section{JavaScript Tests}
+While there are no C++ tests, it is possible to gain significant coverage by using
+JavaScript Tests. Mocha is the JavaScript testing framework used for rootJS. 
+Mocha runs on Node.js and explicitly supports asynchronous testing, meaning it is ideal for testing 
+rootJS' asynchronous capabilities.
+\\ \\
+Miscellaneous
+\begin{itemize}
+\item should be possible to have non pointer references to returned objects from function calls
+\end{itemize}
+Functions overloading
+
+\begin{itemize}
+\item should not be possible to call Printf without the corect args
+\item should return a number when calling Hash on a string
+\item should be possible to call a function that returns a char*
+\item should be possible to call a function with a callback that is called when the root code has been processed
+\end{itemize}
+Interface require
+\begin{itemize}
+\item should return an object
+\end{itemize}
+Globals/numbers
+\begin{itemize}
+\item should have a property named kMaxChar
+\item should have kMaxChar which equals 128
+\item should save gDebug as an integer (drop decimal values)
+\item should overflow silently
+\item should not accept values that are not numeric
+\item should have a property named kInitTreatAsZero
+\item should have kInitTreatAsZero which equals 1e-12
+\item should have kInitTreatAsZero which equals 1e-12
+\item should fail to write to const globals strings
+\item should have the gProgName "node"
+\item should consider char pointers to be immutable
+\end{itemize}
+Booleans
+\begin{itemize}
+\item should have kTRUE which should be true
+\item should have kFALSE which should be false
+\item should fail to change the value of kFALSE
+\end{itemize}
+Functions test
+\begin{itemize}
+\item should not be possible to call Printf without the corect args
+\item should not be possible to call gSystem.Dump without the corect args
+\item should have gSystem.ProcessEvents returning a boolean value
+\item should be possible to call virtual methods
+\item should be possible to call methods asynchronously
+\item should be possible to get return values as a param of a callback function
+\item should be possible to run multiple functions asynchronously in parallel
+\end{itemize}
+Constructor
+\begin{itemize}
+\item should be possible to create a new TString
+\end{itemize}
+Function return values
+\begin{itemize}
+\item boolean values should be returned even though they are false
+\end{itemize}

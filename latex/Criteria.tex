@@ -4,7 +4,10 @@ These are the Required Criteria as stated in the functional specification:
 \begin{itemize}
 	\item work on Linux
 \end{itemize}
-	This is rather straightforward as long as the user has installed the required dependencies.
+	This is rather straightforward as long as the user has installed the required dependencies. 
+	This means that, at the very least, ROOT and Node.js have to be installed. 
+	ROOT is supported on only a few major Linux distributions, so rootJS is limited to the systems
+	on which ROOT has been installed.
 	
 \begin{itemize}
 	\item allow the user to interact with any ROOT class from the Node.js JavaScript interpreter
@@ -17,18 +20,31 @@ var root = require(rootJS.node);
 // C++: Expose the initialize method as the main entry point
 NODE_MODULE(rootJS, initialize)
 \end{verbatim}
-	If the user would then like to request TMath::Pi() from ROOT, then they would have to do the following: 
-\begin{verbatim}
-var root = require(rootJS.node);
-var pi = root.TMath.Pi();
+	A file \textit{index.js} is offered to make initializing rootJS easier for the user 
+	which will also handle user interface callbacks. \\
+	\\
+	\textit{index.js} :
+\begin{verbatim}	
+module.exports = require('./build/Release/rootjs.node');
+
+var uicallback = function() {
+	module.exports.gSystem.ProcessEvents();
+	setTimeout(uicallback, 100);
+}
+uicallback();
 \end{verbatim}
-	The user would then have access on the TMath::Pi() from ROOT.
+	If the user would then like to open a TBrowser() from ROOT, then they would have to do the following: 
+\begin{verbatim}
+var root = require('./index.js');
+new root.TBrowser();
+\end{verbatim}
+	The user would then have access to a  TBrowser() from ROOT. 
 	
 \begin{itemize}
 	\item accept C++ code for just-in-time compilation
 \end{itemize}
 The user will have access to the Node.js interpreter and can enter single lines of code in it. 
-These lines of code will be interpreted by rootJS and rootJS will call 
+These lines of code will be interpreted by rootJS and rootJS will call Cling to interpret them.
 
 \begin{itemize}
 	\item update dynamically following changes to C++ internals
