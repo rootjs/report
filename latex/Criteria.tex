@@ -1,0 +1,78 @@
+\chapter{Criteria}
+\section{Required Criteria}
+These are the Required Criteria as stated in the functional specification:
+\begin{itemize}
+	\item work on Linux
+\end{itemize}
+	This is rather straightforward as long as the user has installed the required dependencies.
+	
+\begin{itemize}
+	\item allow the user to interact with any ROOT class from the Node.js JavaScript interpreter
+\end{itemize}
+	The user is able to interact with any ROOT class by requesting any class with rootJS. The following is an extract from the description of the NodeHandler	in the module guide, which describes how rootJS is started up:
+\begin{verbatim}
+// JavaScript: Load ROOT bindings in JavaScript
+var root = require(rootJS.node);
+
+// C++: Expose the initialize method as the main entry point
+NODE_MODULE(rootJS, initialize)
+\end{verbatim}
+	If the user would then like to request TMath::Pi() from ROOT, then they would have to do the following: 
+\begin{verbatim}
+var root = require(rootJS.node);
+var pi = root.TMath.Pi();
+\end{verbatim}
+	The user would then have access on the TMath::Pi() from ROOT.
+	
+\begin{itemize}
+	\item accept C++ code for just-in-time compilation
+\end{itemize}
+The user will have access to the Node.js interpreter and can enter single lines of code in it. 
+These lines of code will be interpreted by rootJS and rootJS will call 
+
+\begin{itemize}
+	\item update dynamically following changes to C++ internals
+\end{itemize}
+
+
+\begin{itemize}
+	\item provide asynchronous wrappers for common I/O operations (i.e. file and tree access)
+\end{itemize}
+While no specifics were written about asynchronous processes in the module guide, two variations were considered. The first variation would utilize ROOT's inbuilt 
+multi-threading environment. ROOT contains a TThread class which is similar to the std::thread class in C++, but is adjusted to ROOT. 
+The second variation would use libuv, a software library that provides asynchronous even notification and was mainly designed for Node.js. 
+
+\section{Optional Criteria}
+These are the Optional Criteria as stated in the functional specification:
+\begin{itemize}
+	\item support the streaming of data in JavaScript Object Notation (JSON) format compatible with JavaScript ROOT
+\end{itemize}
+
+
+\begin{itemize}
+	\item implement a web server based on Node.js to mimic the function of the ROOT HTTP server
+\end{itemize}
+
+
+\begin{itemize}
+	\item work OS independent (i.e. support Mac OS X, Linux operating systems)
+\end{itemize}
+
+\section{Limiting Criteria}
+These are the Limiting Criteria as stated in the functional specification:
+\begin{itemize}
+	\item add any extending functionality to the existing ROOT framework
+\end{itemize}
+No code was written to implement any new features which are not already existing in the ROOT framework. 
+
+\begin{itemize}
+	\item necessarily support previous ROOT versions
+\end{itemize}
+ROOT 6 uses the LLVM-based C++ interpreter Cling, while ROOT 5.34 uses the C++ interpreter CINT. 
+rootJS was designed with ROOT 6 in mind and many of the function calls, etc. will only work with Cling. 
+As of yet, rootJS has not been tested not been test on older ROOT versions, but it is very unlikely that rootJS will function with ROOT 5.34.
+
+\begin{itemize}
+	\item necessarily support future ROOT versions
+\end{itemize}
+If future versions of ROOT also utilize Cling, rootJS might be able to support them. Therefore it is likely that rootJS should support all versions of ROOT 6.

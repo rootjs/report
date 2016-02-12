@@ -1,0 +1,48 @@
+\documentclass[oneside,a4paper]{report}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{ulem}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{rotating}
+\usepackage[T1]{fontenc}
+\usepackage[headheight=25pt,margin=0.7in,top=1.5in,bottom=1in,right=1in,left=1in]{geometry}
+
+\hypersetup{colorlinks=true,linktoc=none,citecolor=black,urlcolor=blue}
+\hypersetup{linktocpage=false,linkcolor=black}
+
+\pagestyle{fancy}
+\fancyhead[R]{\includegraphics[width=2cm]{./latex/resources/kitlogo.png}}
+\fancyhead[L]{\leftmark}
+
+\fancypagestyle{plain}{
+        \rhead{\includegraphics[width=2cm]{./latex/resources/kitlogo.png}}
+        \lhead{\leftmark}
+}
+
+
+\renewcommand{\arraystretch}{2}
+
+\titleformat{\chapter}[hang]
+ {\normalfont\bfseries\LARGE}{\thechapter. }{0pt}{\LARGE}
+\titleformat{\section}[hang]
+ {\normalfont\bfseries\Large}{\thesection. }{0pt}{\Large}
+\titleformat{\paragraph}[hang]
+ {\normalfont\bfseries\normalsize}{}{}{}
+
+\titlespacing*{\chapter}{0pt}{-20pt}{10pt}
+
+\begin{document}
+	\input{./latex/Title.tex}
+  	\tableofcontents
+	\input{./latex/Introduction.tex}
+	\input{./latex/Architecture.tex}
+	\input{./latex/Criteria.tex}
+	\input{./latex/UnitTests.tex}
+%  \clearpage
+
+
+\end{document}
